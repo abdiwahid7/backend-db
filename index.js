@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 // const indexStart = require('./models/indexStart')
 const studentRoute = require('./routes/studentRoutes')
+const courseRoute = require('./routes/courseRoutes')
 const app = express()
 
 
@@ -26,7 +27,8 @@ app.use(cors({
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use('/api', studentRoute)
+app.use(studentRoute)
+app.use(courseRoute)
 // app.use(indexStart)
 
 

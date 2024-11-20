@@ -28,6 +28,7 @@ db.Sequelize = Sequelize
 db.sequelize = sequelize
 
 db.students = require('./studentModel.js')(sequelize, DataTypes)
+db.courses = require('./courseModel.js')(sequelize,DataTypes)
 
 db.sequelize.sync({force: false})
 .then(()=>{
