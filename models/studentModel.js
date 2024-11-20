@@ -49,7 +49,11 @@ module.exports=(sequelize, DataTypes)=>{
             type: DataTypes.TEXT,
             allowNull: true,
           },
+          course_id:{
+            type:DataTypes.INTEGER,
+            allowNull:true
+          },
       });
       
-  return Student
- }
+  return Student;
+}

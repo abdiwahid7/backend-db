@@ -15,8 +15,8 @@ module.exports = {
             };
             const addCourse = await Course.create(info);
             res.status(200).send(addCourse);  // Send the created course back in the response
-        } catch (error) {
-            next(error);  // If there's an error, pass it to the error handler
+        } catch (err) {
+            next(err);  // If there's an error, pass it to the error handler
         }
     },
 

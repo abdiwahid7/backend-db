@@ -34,6 +34,9 @@ db.sequelize.sync({force: false})
 .then(()=>{
     console.log('re-sync done');
     
-})
+});
+
+//db.courses.hasone(db.students)
+db.students.belongsTo(db.courses, {foreignKey:"course_id"});
 
 module.exports = db

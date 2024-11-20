@@ -41,14 +41,15 @@ app.use(courseRoute)
 
 
 
-app.use((req, res, next)=>{
-    const err = new Error('Not Found')
-    err.status = 404
-    next(err)
-})
+app.use((req, res, next) => {
+    const err = new Error('Not Found'); // Create a new error object with message "Not Found"
+    err.status = 404; // Set the error status to 404 (Not Found)
+    next(err); // Pass the error to the next middleware (the error-handling middleware)
+});
 
 
-app.use((err, res, req, next)=>{
+
+app.use((err, req, res, next)=>{
     res.status(err.status || 500)
     res.send({
         error: {

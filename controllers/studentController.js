@@ -2,6 +2,7 @@ const db = require('../models/indexStart')
 const creatError = require('http-errors')
 
 const Student = db.students
+const Course = db.courses
 
 module.exports = {
 
@@ -11,7 +12,8 @@ module.exports = {
             let info = {
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
-                gender: req.body.gender 
+                gender: req.body.gender,
+                course_id: req.body.course_id
             }
             const addStudent = await Student.create(info)
             res.status(200).send(addStudent)
@@ -20,11 +22,13 @@ module.exports = {
             next(error)
         }
     },
-    //get all students
-    getAllStudents : async(req,res,next)=>{
+    //get all students with course
+    getStudents : async(req,res,next)=>{
         try{
-            let students = await Student.findAll({})
-            res.status(200).send(customers)
+            let allStudents = await Student.findAll({
+                include:[{model: Course,attributes:['coursename']}]
+            })
+            res.status(200).send(allStudents)
         }catch(error) {
             next(error)
         }
@@ -49,7 +53,7 @@ module.exports = {
     updateStudent :async(req,res,next)=>{
         try {
             let id = req.params.id
-            const student = await Student.update(req.body,{ where : {student_id}}) 
+            const student = await Student.update(req.body,{ where : {student_id: id}}) 
             if (!student){
                 throw(createError(404,"student does not exist"))
             }
