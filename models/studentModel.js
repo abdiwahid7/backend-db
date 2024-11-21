@@ -54,6 +54,12 @@ module.exports=(sequelize, DataTypes)=>{
             allowNull:true
           },
       });
+      Student.associate = (models) => {
+        Student.belongsTo(models.Course, {
+          foreignKey: 'course_id',
+          as: 'course', // Alias for the relation
+        });
+      };
       
   return Student;
 }
