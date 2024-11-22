@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const JWT = require('jsonwebtoken')
 
 module.exports=(sequelize,DataTypes)=>{
     const User = sequelize.define('User',{
@@ -21,7 +21,7 @@ module.exports=(sequelize,DataTypes)=>{
 
     //function to hash password
 
-    user.beforeCreate(async (user)=>{
+    User.beforeCreate(async (user)=>{
         try{
             const salt = await bcrypt.genSalt(12);
             // user.password = await bcrypt.hash(user.password, salt);
@@ -34,7 +34,7 @@ module.exports=(sequelize,DataTypes)=>{
     });
 
     //function to compare the entered password with the saved hashed password
-    user.prototype.comparePassword = async function(password){
+    User.prototype.comparePassword = async function(password){
         try{
             return await bcrypt.compare(password,this.password);
             } catch (error){
@@ -44,4 +44,6 @@ module.exports=(sequelize,DataTypes)=>{
                 throw error;
             }
     }
+
+    return User
 }
